@@ -10,7 +10,7 @@ const methodOverride = require('method-override');
 const Journals = require('./models/journalSchema');
 const path = require('path');
 const journalRouter = require('./controllers/Journals')
-
+const cors = require('cors')
 require('./config/database');
 
 //ENV. VARIABLES
@@ -26,7 +26,7 @@ const PORT = process.env.PORT || 3005;
 
 
 app.use(express.urlencoded({extended:true}));//originally false
-
+app.use(cors({ origin: '*' }))
 
 //MIDDLEWARE
 app.set('view engine', 'jsx');
