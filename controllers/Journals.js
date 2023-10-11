@@ -31,37 +31,41 @@ router.get('/journals/new', (req, res) => {
 
 
 //DELETE
-router.delete('/journals/:id', async(req, res)=>{
+router.delete('/:id', async(req, res)=>{
     try {
      await Journals.findByIdAndRemove(req.params.id)
-     console.log(Journals)
-         res.redirect('/journals');
+
+        //  res.redirect('/journals');
+        res.send("Journal Deleted")
      }catch(error){
          console.error(error)
      }})
 
 
 //UPDATE
-router.delete('/journals/:id', async(req, res)=>{
+router.put('/:id', async(req, res)=>{
     try {
-     await Logs.findByIdAndRemove(req.params.id)
+     await Journals.findByIdAndUpdate(req.params.id, req.body)
      console.log(Journals)
-         res.redirect('/journals');
+        //  res.redirect('/journals');
+        res.send("Journal updated")
      }catch(error){
          console.error(error)
      }})
 
 
 //CREATE
-router.post('/journals', async(req, res) => {
+router.post('/', async(req, res) => {
+    console.log('req.body', req.body)
     try{
         if(req.body.wasTodayAGoodDay === 'on'){
             req.body.wasTodayAGoodDay = true;
         } else { 
             req.body.wasTodayAGoodDay = false;
         }
-    await Journals.create(req.body)
-    res.redirect('/journals/:id')
+   const newJournal =  await Journals.create(req.body)
+    // res.redirect('/journals/:id')
+    res.json({data: newJournal})
     }catch(error){
         console.log(error)
     }})
@@ -81,11 +85,12 @@ router.get('/journals/:id/edit', async (req, res)=>{
 
 
 //SHOW
-router.get('/journals/:id', async(req, res) => {
+router.get('/:id', async(req, res) => {
     try{
        console.log("LOOK HERE")
        const journals = await Journals.findById(req.params.id);
-       res.render('Show', {journals: journals})
+    //    res.render('Show', {journals: journals})
+    res.json({data: journals})
    }catch(error){
        console.log(error)
    }})

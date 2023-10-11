@@ -24,7 +24,7 @@ const PORT = process.env.PORT || 3005;
 // const Journals = require('./models/journalSchema')
 //Moved to Controllers
 
-
+app.use(express.json())
 app.use(express.urlencoded({extended:true}));//originally false
 app.use(cors({ origin: '*' }))
 

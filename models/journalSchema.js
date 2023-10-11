@@ -4,7 +4,7 @@ const model = mongoose.model
 
 const journalSchema = new Schema({
     title:  { type: String, required: true},
-    date: {type: Number, required: true},
+    date: {type: String, required: true},
     journalEntry:  { type: String, required: true},
 
     wasTodayAGoodDay: Boolean,
