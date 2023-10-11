@@ -9,8 +9,15 @@ const Journals = require('../models/journalSchema')
 router.get('/', async(req, res) => {
     try{
         const journals = await Journals.find()
-        res.json(journals)
+        console.log(journals)
+        // res.json(journals)
         // res.render(journals)
+        res.status(200).json({
+            status: "success",
+            data: {
+               journals,
+            }
+        })
     }catch(error){
         console.log(error)
     }})
